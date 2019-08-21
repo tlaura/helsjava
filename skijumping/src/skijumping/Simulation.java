@@ -29,9 +29,17 @@ public class Simulation {
 
     public void printJumpers(){
         Collections.sort(jumpers);
+    }
+
+    public void jumpingOrder(){
+        System.out.println("Jumping order:");
+        int order = 1;
+        Collections.sort(this.jumpers);
         for(Jumper jumper: jumpers){
-            System.out.println(jumper.toString());
+            System.out.println(" " + order + ". " + jumper.toString());
+            order++;
         }
+        System.out.println();
     }
 
     public void names(){
@@ -57,7 +65,7 @@ public class Simulation {
             if(jump.equals("jump")){
                 this.round++;
                 System.out.println();
-                System.out.println("Jumping order: \n");
+                jumpingOrder();
                 printJumpers();
                 System.out.println();
                 for(Jumper jumper: jumpers){
