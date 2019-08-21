@@ -5,64 +5,69 @@ import java.util.*;
 public class Jumper implements Comparable<Jumper> {
     private String name;
     private int points;
-    private ArrayList<Integer> votes;
+    private ArrayList<Integer> lengths;
     private int length;
+    private Random random;
+    private int[] votes;
 
 
     public Jumper(String name){
         this.name = name;
         this.points = 0;
-        this.votes = new ArrayList<>();
+        this.lengths = new ArrayList<>();
         this.length = 0;
+        this.random = new Random();
+        this.votes = new int[5];
+    }
+
+    public void setAndAddLength(){
+        this.length = random.nextInt(120 - 60 + 1) + 60;
+        this.lengths.add(this.length);
+    }
+
+    public int getLength(){
+        return this.length;
     }
 
     public int getPoints(){
         return this.points;
     }
 
-    public void setLength(){
-        Random num = new Random();
-        this.length = num.nextInt(61) + 60;
+    public String getName(){
+        return this.name;
     }
 
-    public void votes(){
+    public void addPoints(){
+        this.points += this.length + totalPointsFromVotes();
+    }
+
+    public int[] getVotes(){
+        return this.votes;
+    }
+
+    public void setVotes(){
         int i = 0;
         while(i < 5){
-            Random num = new Random();
-            this.votes.add(num.nextInt(11)+10);
-            i++;
+            this.votes[i++] = random.nextInt(11)+10;
         }
     }
 
-    public void printResults(){
-        votes();
-        System.out.println(this.name);
-        setLength();
-        System.out.println(" length: " + this.length);
-        System.out.print(" judge votes: ");
-        System.out.println(Arrays.toString(this.votes.toArray()));
-        System.out.println();
-        updatePoints();
-        clearVotes();
-    }
+    public int totalPointsFromVotes(){
+        ArrayList<Integer> sortedVotes = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            sortedVotes.add(this.votes[i]);
+        }
+        Collections.sort(sortedVotes);
+        sortedVotes.remove(0);
+        sortedVotes.remove(sortedVotes.size()-1);
 
-    public int pointsPerRound(){
-        Collections.sort(this.votes);
         int sum = 0;
-        for (int i = 1; i < votes.size()-1; i++) {
-            sum += this.votes.get(i);
+        for(int vote: sortedVotes){
+            sum += vote;
         }
-        System.out.println(sum);
-        return sum + this.length;
+        return sum;
     }
 
-    public void updatePoints(){
-        this.points += pointsPerRound();
-    }
-
-    public void clearVotes(){
-        this.votes.clear();
-    }
 
     @Override
     public String toString() {
@@ -74,17 +79,4 @@ public class Jumper implements Comparable<Jumper> {
         return this.points - jumper.getPoints();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Jumper jumper = (Jumper) o;
-        return points == jumper.points &&
-                name.equals(jumper.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, points);
-    }
 }
