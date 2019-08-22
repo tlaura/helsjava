@@ -10,7 +10,6 @@ public class Jumper implements Comparable<Jumper> {
     private Random random;
     private int[] votes;
 
-
     public Jumper(String name){
         this.name = name;
         this.points = 0;
@@ -75,7 +74,6 @@ public class Jumper implements Comparable<Jumper> {
         }
         return sum;
     }
-
 
     @Override
     public String toString() {
