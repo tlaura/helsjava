@@ -16,6 +16,33 @@ public class Simulation {
         this.jumpers.add(jumper);
     }
 
+    public void names(){
+        System.out.println("Kumpula ski jumping week\n");
+        System.out.println("Write the names of the participants one at a time; " +
+                "an empty string brings you to the jumping phase.");
+        while(true){
+            System.out.print("  Participant name: ");
+            String name = scan.nextLine();
+            Jumper j = new Jumper(name);
+            if(name.length() > 0){
+                addJumper(j);
+            } else {
+                break;
+            }
+        }
+    }
+
+    public void jumpingOrder(){
+        Collections.sort(this.jumpers);
+        System.out.println("Jumping order:");
+        int order = 1;
+        for(Jumper jumper: jumpers){
+            System.out.println("  " + order + ". " + jumper.toString());
+            order++;
+        }
+        System.out.println();
+    }
+
     public void printResults(Jumper jumper){
         System.out.println("  " + jumper.getName());
         jumper.setAndAddLength();
@@ -38,37 +65,9 @@ public class Simulation {
         }
     }
 
-    public void sortJumpers(){
-        Collections.sort(jumpers);
-    }
-
-    public void jumpingOrder(){
-        System.out.println("Jumping order:");
-        int order = 1;
-//        Collections.sort(this.jumpers);
-        for(Jumper jumper: jumpers){
-            System.out.println("  " + order + ". " + jumper.toString());
-            order++;
-        }
-    }
-
-    public void names(){
-        Print.start();
-        while(true){
-            System.out.print("  Participant name: ");
-            String name = scan.nextLine();
-            Jumper j = new Jumper(name);
-            if(name.length() > 0){
-                addJumper(j);
-            } else {
-                break;
-            }
-        }
-    }
-
     public void jumpingPhase(){
         System.out.println();
-        Print.printJumpStart();
+        System.out.println("The tournament begins!\n");
         while(true){
             System.out.print("Write \"jump\" to jump; otherwise you quit: ");
             String jump = scan.nextLine();
@@ -77,11 +76,6 @@ public class Simulation {
                 System.out.println();
                 System.out.println("Round " + this.round + "\n");
                 jumpingOrder();
-                sortJumpers();
-                System.out.println();
-                for(Jumper jumper: jumpers){
-                    jumper.toString();
-                }
                 System.out.println("Results of round " + this.round);
                 for(Jumper jumper: jumpers){
                     printResults(jumper);
