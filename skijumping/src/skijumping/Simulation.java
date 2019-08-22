@@ -17,11 +17,11 @@ public class Simulation {
     }
 
     public void printResults(Jumper jumper){
-        System.out.println(" " + jumper.getName());
+        System.out.println("  " + jumper.getName());
         jumper.setAndAddLength();
-        System.out.println("  length: " + jumper.getLength());
+        System.out.println("    length: " + jumper.getLength());
         jumper.setVotes();
-        System.out.print("  judge votes: " + Arrays.toString(jumper.getVotes()));
+        System.out.print("    judge votes: " + Arrays.toString(jumper.getVotes()));
         System.out.println();
         jumper.addPoints();
     }
@@ -47,16 +47,15 @@ public class Simulation {
         int order = 1;
 //        Collections.sort(this.jumpers);
         for(Jumper jumper: jumpers){
-            System.out.println(" " + order + ". " + jumper.toString());
+            System.out.println("  " + order + ". " + jumper.toString());
             order++;
         }
-        System.out.println();
     }
 
     public void names(){
         Print.start();
         while(true){
-            System.out.print("Participant name: ");
+            System.out.print("  Participant name: ");
             String name = scan.nextLine();
             Jumper j = new Jumper(name);
             if(name.length() > 0){
@@ -76,10 +75,10 @@ public class Simulation {
             if(jump.equals("jump")){
                 this.round++;
                 System.out.println();
+                System.out.println("Round " + this.round + "\n");
                 jumpingOrder();
                 sortJumpers();
                 System.out.println();
-                System.out.println("Round " + this.round + "\n");
                 for(Jumper jumper: jumpers){
                     jumper.toString();
                 }
@@ -91,7 +90,7 @@ public class Simulation {
             } else {
                 System.out.println();
                 System.out.println("Thanks!\n");
-                System.out.println("Tournament results: \n");
+                System.out.println("Tournament results:");
                 printTournamentResults();
                 break;
             }

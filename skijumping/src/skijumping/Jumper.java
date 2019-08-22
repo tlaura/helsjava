@@ -56,7 +56,7 @@ public class Jumper implements Comparable<Jumper> {
         for (int i = 0; i < lengths.size()-1; i++) {
             System.out.print(length + " m, ");
         }
-        System.out.println(lengths.get(lengths.size()-1) + "m");
+        System.out.println(lengths.get(lengths.size()-1) + " m");
         System.out.println();
     }
 
