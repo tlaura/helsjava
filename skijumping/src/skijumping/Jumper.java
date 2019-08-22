@@ -52,6 +52,14 @@ public class Jumper implements Comparable<Jumper> {
         }
     }
 
+    public void printLengths(){
+        for (int i = 0; i < lengths.size()-1; i++) {
+            System.out.print(length + " m, ");
+        }
+        System.out.println(lengths.get(lengths.size()-1) + "m");
+        System.out.println();
+    }
+
     public int totalPointsFromVotes(){
         ArrayList<Integer> sortedVotes = new ArrayList<>();
         for (int i = 0; i < 5; i++) {

@@ -17,24 +17,35 @@ public class Simulation {
     }
 
     public void printResults(Jumper jumper){
-        System.out.println(jumper.getName());
+        System.out.println(" " + jumper.getName());
         jumper.setAndAddLength();
-        System.out.println(" length: " + jumper.getLength());
+        System.out.println("  length: " + jumper.getLength());
         jumper.setVotes();
-        System.out.print(" judge votes: " + Arrays.toString(jumper.getVotes()));
+        System.out.print("  judge votes: " + Arrays.toString(jumper.getVotes()));
         System.out.println();
         jumper.addPoints();
     }
 
+    public void printTournamentResults(){
+        System.out.println("Position    Name");
+        Collections.reverse(jumpers);
+        int order = 1;
+        for(Jumper jumper: jumpers){
+            System.out.println(order + "           " + jumper.toString());
+            System.out.print("            jump lengths: ");
+            jumper.printLengths();
+            order++;
+        }
+    }
 
-    public void printJumpers(){
+    public void sortJumpers(){
         Collections.sort(jumpers);
     }
 
     public void jumpingOrder(){
         System.out.println("Jumping order:");
         int order = 1;
-        Collections.sort(this.jumpers);
+//        Collections.sort(this.jumpers);
         for(Jumper jumper: jumpers){
             System.out.println(" " + order + ". " + jumper.toString());
             order++;
@@ -66,12 +77,13 @@ public class Simulation {
                 this.round++;
                 System.out.println();
                 jumpingOrder();
-                printJumpers();
+                sortJumpers();
                 System.out.println();
+                System.out.println("Round " + this.round + "\n");
                 for(Jumper jumper: jumpers){
                     jumper.toString();
                 }
-                System.out.println("Round " + this.round + "\n");
+                System.out.println("Results of round " + this.round);
                 for(Jumper jumper: jumpers){
                     printResults(jumper);
                 }
@@ -80,6 +92,7 @@ public class Simulation {
                 System.out.println();
                 System.out.println("Thanks!\n");
                 System.out.println("Tournament results: \n");
+                printTournamentResults();
                 break;
             }
         }
