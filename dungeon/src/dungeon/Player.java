@@ -1,30 +1,17 @@
 package dungeon;
 
-public class Player {
-    private int height, length, x, y;
-
-    public Player(int height, int length){
-        this.height = height;
-        this.length = length;
-        this.x = 0;
-        this.y = 0;
+public class Player extends Character {
+    public Player(){
+        super(0, 0);
     }
 
-    public int getX(){
-        return this.x;
-    }
-
-    public int getY(){
-        return this.y;
-    }
-
-    public void setCoordinates(char c) {
+    public void setCoordinates(char c, int height, int length) {
         if(c == 'w'){
             goUp();
         } else if(c == 's'){
-            goDown();
+            goDown(height);
         } else if(c == 'd'){
-            goRight();
+            goRight(length);
         } else if(c == 'a'){
             goLeft();
         }
@@ -32,34 +19,35 @@ public class Player {
 
     //  command - w
     public void goUp() {
-        if(this.x > 0){
+        if(x > 0){
             this.x--;
         }
     }
-
     //  command - s
-    public void goDown() {
-        if(this.x < height){
-            this.x++;
+    public void goDown(int height) {
+        if(x < height){
+            x++;
         }
     }
-
     //  command - d
-    public void goRight() {
-        if(this.y < length){
-            this.y++;
+    public void goRight(int length) {
+        if(y < length){
+            y++;
         }
     }
-
     //  command - a
     public void goLeft() {
-        if(this.y > 0){
-            this.y--;
+        if(y > 0){
+            y--;
         }
     }
 
     @Override
+    public void moveTo(int newX, int newY) {
+    }
+
+    @Override
     public String toString(){
-        return "@ " + this.x + " " + this.y;
+        return "@ " + super.toString();
     }
 }

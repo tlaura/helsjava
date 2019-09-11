@@ -2,14 +2,9 @@ package dungeon;
 
 import java.util.Random;
 
-public class Vampire {
-    private int height, length, x, y;
-
-    public Vampire(int height, int length){
-        this.height = height;
-        this.length = length;
-        this.x = new Random().nextInt(height);
-        this.y = new Random().nextInt(length);
+public class Vampire extends Character {
+    public Vampire(int x, int y){
+        super(x, y);
     }
 
     public void setRandomCoordinates(int height, int length) {
@@ -18,7 +13,10 @@ public class Vampire {
     }
 
     @Override
+    public void moveTo(int newX, int newY) {}
+
+    @Override
     public String toString(){
-        return "v " + this.x + " " + this.y;
+        return "v " + super.toString();
     }
 }

@@ -1,43 +1,60 @@
 package dungeon;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Dungeon {
     Scanner scan = new Scanner(System.in);
     private Random random;
-    private int length, height, vampires, moves;
+    public int height, length, vampires, moves;
     private boolean vampiresMove;
     private Player player;
     private char[][] board;
+    private List<Vampire> vampireList;
 
-    public Dungeon(int length, int height, int vampires, int moves, boolean vampiresMove){
-        this.length = length;
+
+    public Dungeon(int height, int length,  int vampires, int moves, boolean vampiresMove){
         this.height = height;
+        this.length = length;
         this.vampires = vampires;
         this.moves = moves;
         this.vampiresMove = vampiresMove;
-        player = new Player(length, height);
+        player = new Player();
         this.board = setBoard();
+        this.vampireList = new ArrayList<>();
     }
+
 
     public void positions(){
         System.out.println(player.toString());
-        Vampire vampire = new Vampire(height, length);
-        System.out.println(vampire.toString());
         for (int i = 0; i < vampires; i++) {
-            vampire.setRandomCoordinates(height, length);
+            Vampire vampire = new Vampire(new Random().nextInt(height), new Random().nextInt(length));
+            vampireList.add(vampire);
             System.out.println(vampire.toString());
         }
+        changeVampiresInSamePlace();
         System.out.println();
         printBoard();
 
         char[] command = scan.nextLine().toCharArray();
         for(char c: command){
-            player.setCoordinates(c);
+            player.setCoordinates(c, height, length);
         }
         System.out.println();
     }
+
+
+    public void changeVampiresInSamePlace(){
+        for (int i = 1; i < vampireList.size(); i++) {
+            if(vampireList.get(i).getX() == vampireList.get(i-1).getX()
+                    && vampireList.get(i).getY() == vampireList.get(i-1).getY()){
+                vampireList.get(i).setRandomCoordinates(height, length);
+            }
+        }
+    }
+
 
     public char[][] setBoard(){
         char[][] board = new char[height][length];
@@ -52,6 +69,7 @@ public class Dungeon {
         }
         return board;
     }
+
 
     public void printBoard(){
         for (int row = 0; row < board.length; row++) {
