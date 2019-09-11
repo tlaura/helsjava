@@ -10,6 +10,14 @@ public class Player {
         this.y = 0;
     }
 
+    public int getX(){
+        return this.x;
+    }
+
+    public int getY(){
+        return this.y;
+    }
+
     public void setCoordinates(char c) {
         if(c == 'w'){
             goUp();
