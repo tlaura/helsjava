@@ -1,16 +1,11 @@
 package dungeon;
 
-public abstract class Character {
+public abstract class Position {
     protected int x, y;
-    protected char c;
 
-    public Character(int x, int y){
+    public Position(int x, int y){
         this.x = x;
         this.y = y;
-    }
-
-    public char boardChar(){
-        return 'c';
     }
 
     public int getX() {
@@ -29,9 +24,7 @@ public abstract class Character {
         this.y = y;
     }
 
-//    public abstract void setCoordinates(char c, int height, int length);
-
-    public abstract void move(int newX, int newY);
+    protected abstract void move(int newX, int newY);
 
     @Override
     public String toString(){
