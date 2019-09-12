@@ -5,6 +5,11 @@ public class Player extends Character {
         super(0, 0);
     }
 
+    @Override
+    public char boardChar(){
+        return 'v';
+    }
+
     public void setCoordinates(char c, int height, int length) {
         if(c == 'w'){
             goUp();
@@ -43,7 +48,7 @@ public class Player extends Character {
     }
 
     @Override
-    public void moveTo(int newX, int newY) {
+    public void move(int newX, int newY) {
     }
 
     @Override

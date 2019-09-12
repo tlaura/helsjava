@@ -7,13 +7,12 @@ import java.util.Scanner;
 
 public class Dungeon {
     Scanner scan = new Scanner(System.in);
-    private Random random;
+    private Random random = new Random();
     public int height, length, vampires, moves;
     private boolean vampiresMove;
     private Player player;
     private char[][] board;
     private List<Vampire> vampireList;
-
 
     public Dungeon(int height, int length,  int vampires, int moves, boolean vampiresMove){
         this.height = height;
@@ -22,54 +21,59 @@ public class Dungeon {
         this.moves = moves;
         this.vampiresMove = vampiresMove;
         player = new Player();
-        this.board = setBoard();
         this.vampireList = new ArrayList<>();
-    }
-
-
-    public void positions(){
-        System.out.println(player.toString());
         for (int i = 0; i < vampires; i++) {
-            Vampire vampire = new Vampire(new Random().nextInt(height), new Random().nextInt(length));
-            vampireList.add(vampire);
-            System.out.println(vampire.toString());
+            vampireList.add(new Vampire(random.nextInt(height), random.nextInt(length)));
         }
-        changeVampiresInSamePlace();
-        System.out.println();
-        printBoard();
 
-        char[] command = scan.nextLine().toCharArray();
-        for(char c: command){
-            player.setCoordinates(c, height, length);
-        }
-        System.out.println();
+        this.board = setBoard();
     }
 
+    public void startingPositionVampires(){
+        for (Vampire v: vampireList){
+            while(true){
+                int x = random.nextInt(height);
+                int y = random.nextInt(length);
 
-    public void changeVampiresInSamePlace(){
-        for (int i = 1; i < vampireList.size(); i++) {
-            if(vampireList.get(i).getX() == vampireList.get(i-1).getX()
-                    && vampireList.get(i).getY() == vampireList.get(i-1).getY()){
-                vampireList.get(i).setRandomCoordinates(height, length);
+                if(!(x == 0 && y == 0) && !(isPlaceTaken(x, y))){
+                    v.setX(x);
+                    v.setY(y);
+                    break;
+                }
             }
         }
     }
 
+//    vampires cannot be at same position
+    public boolean isPlaceTaken(int x, int y){
+        for(Vampire v: vampireList){
+            int xPos = v.getX();
+            int yPos = v.getY();
 
-    public char[][] setBoard(){
+            if(xPos == x && yPos == y){
+                return true;
+            }
+         }
+        return false;
+    }
+
+    public char[][] setBoard() {
         char[][] board = new char[height][length];
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[row].length; col++) {
+                board[row][col] += '.';
+                for (Vampire v: vampireList) {
+                    if (row == v.getX() && col == v.getY()) {
+                        board[row][col] = 'v';
+                    }
+                }
                 if(row == player.getX() && col == player.getY()){
                     board[row][col] = '@';
-                } else {
-                    board[row][col] = '*';
                 }
             }
         }
         return board;
     }
-
 
     public void printBoard(){
         for (int row = 0; row < board.length; row++) {
@@ -78,6 +82,22 @@ public class Dungeon {
             }
             System.out.println();
         }
+    }
+
+    public void positions(){
+        System.out.println(player.toString());
+        startingPositionVampires();
+        for (Vampire v: vampireList) {
+            System.out.println(v.toString());
+        }
+        System.out.println();
+        printBoard();
+
+        char[] command = scan.nextLine().toCharArray();
+        for(char c: command){
+            player.setCoordinates(c, height, length);
+        }
+        System.out.println();
     }
 
     public void run(){
