@@ -12,7 +12,7 @@ public class Dungeon {
     private boolean vampiresMove; // if true vampires change position
     private Player player;
     private List<Vampire> vampireList;
-//    vampires take one step for each step the player takes
+    private int firstMove;
 
     public Dungeon(int height, int length,  int vampires, int moves, boolean vampiresMove){
         this.height = height;
@@ -23,20 +23,20 @@ public class Dungeon {
         player = new Player();
         this.vampireList = new ArrayList<>();
         for (int i = 0; i < vampires; i++) {
-            if(vampiresMove)
-                vampireList.add(new Vampire(random.nextInt(height), random.nextInt(length)));
+            vampireList.add(new Vampire(random.nextInt(height), random.nextInt(length)));
         }
+        firstMove = moves;
     }
 
+
     //  (0, 0) starting position not allowed or place is taken - move is not executed
-    public void startingPositionVampires(int startingPosition){
-        int firstMove = moves;
+    public void startingPositionVampiresMove(int startingPosition){
         for (Vampire v: vampireList){
             while(true){
                 int x = random.nextInt(height);
                 int y = random.nextInt(length);
                 if(startingPosition == firstMove){
-//                    only check for (0,0) on first move
+                //  only check for (0,0) on first move
                     if(!(x == 0 && y == 0) && !(isPlaceTaken(x, y))){
                         v.setX(x);
                         v.setY(y);
@@ -53,7 +53,7 @@ public class Dungeon {
         }
     }
 
-    //    vampires cannot be at the same position
+    //  vampires cannot be at the same position
     public boolean isPlaceTaken(int x, int y){
         for(Vampire v: vampireList){
             int xPos = v.getX();
@@ -127,7 +127,7 @@ public class Dungeon {
         playerDestroysVampire();
     }
 
-//    if the player and a vampire run into each other (even momentarily) the vampire is destroyed
+//    if the player and a vampire run into each other
     public void playerDestroysVampire(){
         ArrayList<Vampire> toBeRemoved = new ArrayList<>();
         for (Vampire v: vampireList){
@@ -140,17 +140,23 @@ public class Dungeon {
 
     public void run(){
         while(moves > 0){
-            startingPositionVampires(moves);
+            if(vampiresMove){
+                startingPositionVampiresMove(moves);
+            }
             System.out.println(moves);
             System.out.println();
             positions();
             System.out.println();
-            System.out.println();
             printBoard(setBoard());
-            System.out.println();
             System.out.println();
             move();
             System.out.println();
+            if(vampireList.size() == 0){
+                System.out.println("YOU WIN");
+                break;
+            } else if(moves == 1){
+                System.out.println("YOU LOSE");
+            }
             this.moves--;
         }
     }
