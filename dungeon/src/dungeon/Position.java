@@ -8,20 +8,44 @@ public abstract class Position {
         this.y = y;
     }
 
-    public int getX() {
-        return x;
-    }
-
+    public int getX() { return x; }
     public int getY() {
         return y;
     }
+    public void setX(int x) { this.x = x; }
+    public void setY(int y){ this.y = y; }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setCoordinates(char c, int height, int length) {
+        if(c == 'w'){
+            goUp();
+        } else if(c == 's'){
+            goDown(height);
+        } else if(c == 'd'){
+            goRight(length);
+        } else if(c == 'a'){
+            goLeft();
+        }
     }
 
-    public void setY(int y){
-        this.y = y;
+    public void goUp() {  //  command - w
+        if(x > 0){
+            this.x--;
+        }
+    }
+    public void goDown(int height) { //  command - s
+        if(x < height){
+            x++;
+        }
+    }
+    public void goLeft() {  //  command - a
+        if(y > 0){
+            y--;
+        }
+    }
+    public void goRight(int length) {  //  command - d
+        if(y < length){
+            y++;
+        }
     }
 
     protected abstract void move(int newX, int newY);

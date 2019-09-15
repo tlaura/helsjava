@@ -7,8 +7,9 @@ public class Vampire extends Position {
     }
 
     @Override
-    protected void move(int newX, int newY) {
-
+    public void move(int newX, int newY) {
+        x = newX;
+        y = newY;
     }
 
     @Override
