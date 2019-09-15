@@ -70,18 +70,11 @@ public class Dungeon {
 //    step within the range of users steps
     public void moveInRange(int vampireSteps){
         char[] randomCommand = new char[]{'w', 's', 'd', 'a'};
-        char[] vampireCommands = new char[vampireSteps];
         for(Vampire v: vampireList){
             for (int command = 0; command < vampireSteps; command++) {
                 int ind = new Random().nextInt(randomCommand.length);
-                vampireCommands[command] = randomCommand[ind];
+                v.setCoordinates(randomCommand[ind], height, length);
             }
-            for (int command = 0; command < vampireCommands.length; command++) {
-                v.setCoordinates(vampireCommands[command], height, length);
-            }
-        }
-        for(Vampire v: vampireList){
-
         }
     }
 
