@@ -3,9 +3,8 @@ import dungeon.Vampire;
 
 public class Main {
     public static void main(String[] args) {
-        Dungeon game = new Dungeon(10, 10, 5, 5, true);
+        Dungeon game = new Dungeon(10, 10, 3, 5, true);
         game.run();
-
 
     }
 }
