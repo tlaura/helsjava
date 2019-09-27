@@ -1,12 +1,17 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
     Scanner scan = new Scanner(System.in);
+    PersonDirectory pd = new PersonDirectory();
+
+    public void start() {
+        operations();
+        command();
+    }
 
     public void operations(){
         System.out.println("phone search\n" +
-                " available operations: \n" +
+                "available operations:\n" +
                 " 1 add a number\n" +
                 " 2 search for a number\n" +
                 " 3 search for a person by phone number\n" +
@@ -18,82 +23,85 @@ public class App {
     }
 
     public void command(){
-        PersonDirectory pd = new PersonDirectory();
-
-        while(true){
-            System.out.print("command: ");
+        boolean quit = false;
+        while(!quit) {
+            System.out.print("\ncommand: ");
             String command = scan.nextLine();
-
-            if(command.equals("1")){
-                System.out.print("whose number: ");
-                String name = scan.nextLine();
-                System.out.print("number: ");
-                String num = scan.nextLine();
-                pd.addPhoneNumber(name, num);
-                System.out.println();
-            }
-
-            if(command.equals("2")){
-                System.out.print("whose number: ");
-                String name = scan.nextLine();
-                if(pd.getPhoneNumbers(name) != null){
-                    pd.printPhoneNumbers(pd.getPhoneNumbers(name));
-                } else {
-                    System.out.println(" not found");
-                }
-                System.out.println();
-            }
-
-            if(command.equals("3")){
-                System.out.print("number: ");
-                String number = scan.nextLine();
-                if(pd.getNameBasedOnNumber(number) == null){
-                    System.out.println(" not found");
-                } else {
-                    System.out.println(" " + pd.getNameBasedOnNumber(number));
-                }
-                System.out.println();
-            }
-
-            if(command.equals("4")){
-                System.out.print("whose address: ");
-                String name = scan.nextLine();
-                System.out.print("street: ");
-                String addressStreet = scan.nextLine();
-                System.out.print("city: ");
-                String addressCity = scan.nextLine();
-                String fullAddress = addressStreet + " " + addressCity;
-                pd.setAddress(name, fullAddress);
-                System.out.println();
-            }
-
-            if(command.equals("5")){
-                System.out.print("whose information: ");
-                String name = scan.nextLine();
-                pd.printAllInformation(name);
-                System.out.println();
-            }
-
-            if(command.equals("6")){
-                System.out.print("whose information: ");
-                String name = scan.nextLine();
-                pd.deleteInfo(name);
-                System.out.println();
-            }
-
-            if(command.equals("7")){
-                System.out.print("keyword (if empty, all listed): ");
-                String keyword = scan.nextLine();
-                System.out.println();
-                ArrayList<String> namesFound = pd.searchNames(keyword);
-                for(String name : namesFound){
-                    System.out.println(name);
-                    pd.search(name);
-                    System.out.println();
-                }
-                System.out.println();
+            switch (command) {
+                case "x":
+                    quit = true;
+                    break;
+                case "1":
+                    addNumber();
+                    break;
+                case "2":
+                    searchNumber();
+                    break;
+                case "3":
+                    searchPersonByNumber();
+                    break;
+                case "4":
+                    addAddress();
+                    break;
+                case "5":
+                    searchPersonalInfo();
+                    break;
+                case "6":
+                    deletePersonalInfo();
+                    break;
+                case "7":
+                    filteredSearch();
+                    break;
             }
         }
     }
 
+    private void addNumber() {
+        System.out.print("whose number: ");
+        String name = scan.nextLine();
+        System.out.print("number: ");
+        String number = scan.nextLine();
+        pd.addPhoneNumber(name, number);
+    }
+
+    private void searchNumber(){
+        System.out.print("whose number: ");
+        String name = scan.nextLine();
+        pd.searchNumber(name);
+    }
+
+    private void searchPersonByNumber(){
+        System.out.print("number: ");
+        String number = scan.nextLine();
+        pd.searchNameByNumber(number);
+    }
+
+    private void addAddress(){
+        System.out.print("whose address: ");
+        String name = scan.nextLine();
+        System.out.print("street: ");
+        String street = scan.nextLine();
+        System.out.print("city: ");
+        String city = scan.nextLine();
+        String address = street + " " + city;
+        pd.addAddress(name, address);
+    }
+
+    private void searchPersonalInfo(){
+        System.out.print("whose information: ");
+        String name = scan.nextLine();
+        pd.searchPersonalInfo(name);
+    }
+
+    private void deletePersonalInfo(){
+        System.out.print("whose information: ");
+        String name = scan.nextLine();
+        pd.deletePersonalInfo(name);
+    }
+
+    private void filteredSearch(){
+        System.out.print("keyword (if empty, all listed): ");
+        String keyword = scan.nextLine();
+        pd.filteredSearch(keyword);
+    }
 }

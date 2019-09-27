@@ -1,116 +1,99 @@
 import java.util.*;
 
 public class PersonDirectory {
-    public ArrayList<String> people;
-    public Map<String, String> nameByNumber;
-    public Map<String, Set<String>> numberByName;
-    public Map<String, String> addressByName;
-    public Map<String, String> nameByAddress;
 
+    private Map<String, Set<String>> numberByName;
+    private Map<String, String> nameByNumber;
+    private Map<String, String> addressByName;
 
-    public PersonDirectory(){
-        this.people = new ArrayList<>();
-        this.nameByNumber = new HashMap<>();
+    public PersonDirectory() {
         this.numberByName = new HashMap<>();
+        this.nameByNumber = new HashMap<>();
         this.addressByName = new HashMap<>();
-        this.nameByAddress = new HashMap<>();
     }
 
-    public void addPhoneNumber(String name, String num){
-        this.people.add(name);
-        if(!this.numberByName.containsKey(name)){
-            this.numberByName.put(name, new HashSet<>());
+    public void addPhoneNumber(String name, String number) {
+        if (!numberByName.containsKey(name)) {
+            numberByName.put(name, new HashSet<>());
         }
-        if(!this.nameByNumber.containsKey(num)){
-            this.nameByNumber.put(num, name);
+        if (!nameByNumber.containsKey(number)) {
+            nameByNumber.put(number, name);
         }
-        this.numberByName.get(name).add(num);
+        numberByName.get(name).add(number);
     }
 
-    public void setAddress(String name, String address){
-        if(!this.addressByName.containsKey(name)){
-            this.addressByName.put(name, address);
-        }
-        if(!this.nameByAddress.containsKey(address)){
-            this.nameByAddress.put(address, name);
-        }
-    }
-
-    public Set<String> getPhoneNumbers(String name){
-        return this.numberByName.get(name);
-    }
-
-    public String getNameBasedOnNumber(String num){
-        return this.nameByNumber.get(num);
-    }
-
-    public String getAddress(String name){
-        return this.addressByName.get(name);
-    }
-
-    public void printPhoneNumbers(Set<String> nums){
-        for(String num: nums){
-            System.out.println(" " + num);
-        }
-    }
-
-    public void deleteInfo(String name){
-        Set<String> numbersOfPerson = getPhoneNumbers(name);
-        for(String num: numbersOfPerson){
-            this.nameByNumber.remove(num);
-        }
-        String address = this.addressByName.get(name);
-        this.nameByAddress.remove(address);
-        this.numberByName.remove(name);
-        this.addressByName.remove(name);
-        this.people.remove(name);
-    }
-
-    public void printAllInformation(String name){
-        if(getAddress(name) != null && getPhoneNumbers(name) != null){
-            System.out.println(" address: " + getAddress(name));
-            System.out.println(" phone numbers: ");
-            printPhoneNumbers(getPhoneNumbers(name));
-
-        } else if(getAddress(name) == null && getPhoneNumbers(name) != null){
-            System.out.println(" address unknown");
-            System.out.println(" phone numbers: ");
-            printPhoneNumbers(getPhoneNumbers(name));
-
-        } else if(getPhoneNumbers(name) == null && getAddress(name) != null){
-            System.out.println(" address: " + getAddress(name));
-            System.out.println(" phone number not found");
-
+    public void searchNumber(String name) {
+        if (numberByName.containsKey(name)) {
+            for (String number : numberByName.get(name)) {
+                System.out.println(" " + number);
+            }
         } else {
             System.out.println(" not found");
         }
     }
 
-
-// search methods
-    private String searchAddress(String keyword){
-        String found = "";
-        for(String address: nameByAddress.keySet()){
-            if(address.indexOf(keyword) >= 0){
-                found = nameByAddress.get(address);
-            }
+    public void searchNameByNumber(String number){
+        if(nameByNumber.containsKey(number)){
+            System.out.println(" " + nameByNumber.get(number));
+        } else {
+            System.out.println(" not found");
         }
-        return found;
     }
 
-    public ArrayList<String> searchNames(String keyword){
-        ArrayList<String> found = new ArrayList<String>();
-        for (String name : people) {
-            if (name.indexOf(keyword) >= 0){
-                found.add(name);
+    public void addAddress(String name, String address){
+        if(!addressByName.containsKey(name)){
+            addressByName.put(name, address);
+        }
+    }
+
+    public void searchPersonalInfo(String name){
+        if(!addressByName.containsKey(name) && !numberByName.containsKey(name)){
+            System.out.println("  not found");
+        } else {
+            if(addressByName.containsKey(name)){
+                System.out.println("  address: " + addressByName.get(name));
             } else {
-                found.add(searchAddress(keyword));
+                System.out.println("  address unknown");
+            }
+            if(numberByName.containsKey(name)){
+                System.out.println("  phone numbers:");
+                for(String number: numberByName.get(name)){
+                    System.out.println("   " + number);
+                }
+            } else {
+                System.out.println("  phone number not found");
             }
         }
-        return found;
     }
 
-    public void search(String name){
-        printAllInformation(name);
+    public void deletePersonalInfo(String name){
+//        first delete phone numbers with numberByName map
+        if(numberByName.containsKey(name)){
+            for(String number: numberByName.get(name)){
+                nameByNumber.remove(number);
+            }
+            numberByName.remove(name);
+        }
+
+        if(addressByName.containsKey(name)){
+            addressByName.remove(name);
+        }
+    }
+
+    public void filteredSearch(String keyword){
+        TreeMap<String, String> addressByNameSorted = new TreeMap<>(addressByName);
+        boolean found = false;
+
+        for(String name: addressByNameSorted.keySet()){
+            if(name.contains(keyword) ||
+                    (addressByName.containsKey(name) && addressByName.get(name).contains(keyword))){
+                System.out.println("\n " + name);
+                searchPersonalInfo(name);
+                found = true;
+            }
+        }
+        if(!found){
+            System.out.println(" keyword not found");
+        }
     }
 }
