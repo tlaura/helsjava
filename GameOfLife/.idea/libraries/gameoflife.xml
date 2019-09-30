@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="gameoflife">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../TMCProjects/mooc-2013-OOProgrammingWithJava-PART2/mooc-2013-OOProgrammingWithJava-PART2/week11-week11_43.GameOfLife/lib/gameoflife.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
