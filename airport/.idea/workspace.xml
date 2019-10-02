@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e47bea72-8da4-44ca-9513-1062bbfd0f14" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Airport.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AirportPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Flight.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Plane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WormGame/out/production/WormGame/wormgame/game/WormGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/../WormGame/out/production/WormGame/wormgame/game/WormGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WormGame/out/production/WormGame/wormgame/gui/DrawingBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/../WormGame/out/production/WormGame/wormgame/gui/DrawingBoard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/airport.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirportPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Flight.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plane.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrintInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task.rtf" beforeDir="false" />
-    </list>
+    <list default="true" id="e47bea72-8da4-44ca-9513-1062bbfd0f14" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

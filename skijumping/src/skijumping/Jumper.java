@@ -20,8 +20,9 @@ public class Jumper implements Comparable<Jumper> {
     }
 
     public void setAndAddLength(){
-        this.length = random.nextInt(120 - 60 + 1) + 60;
-        this.lengths.add(this.length);
+        int newLength = random.nextInt(61) + 60;
+        length = newLength;
+        lengths.add(newLength);
     }
 
     public int getLength(){
@@ -53,7 +54,7 @@ public class Jumper implements Comparable<Jumper> {
 
     public void printLengths(){
         for (int i = 0; i < lengths.size()-1; i++) {
-            System.out.print(length + " m, ");
+            System.out.print(lengths.get(i) + " m, ");
         }
         System.out.println(lengths.get(lengths.size()-1) + " m");
         System.out.println();

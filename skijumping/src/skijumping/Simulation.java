@@ -55,8 +55,9 @@ public class Simulation {
 
     public void printTournamentResults(){
         System.out.println("Position    Name");
-        Collections.reverse(jumpers);
         int order = 1;
+        Collections.sort(jumpers);
+        Collections.reverse(jumpers);
         for(Jumper jumper: jumpers){
             System.out.println(order + "           " + jumper.toString());
             System.out.print("            jump lengths: ");
