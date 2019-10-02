@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.swing.Timer;
 import wormgame.Direction;
 import wormgame.domain.Apple;
+import wormgame.domain.Piece;
 import wormgame.domain.Worm;
 import wormgame.gui.Updatable;
 
@@ -25,10 +26,18 @@ public class WormGame extends Timer implements ActionListener {
         this.height = height;
         this.continues = true;
 
+        this.worm = new Worm(width/2, height/2, Direction.DOWN);
+//        apple cannot start on the worm
+        int x = width/2;
+        int y = height/2;
+        while (x == width/2 && y == height/2) {
+            x = new Random().nextInt(width);
+            y = new Random().nextInt(height);
+        }
+        this.apple = new Apple(x, y);
+
         addActionListener(this);
         setInitialDelay(2000);
-        this.worm = new Worm(width/2, height/2, Direction.DOWN);
-        this.apple = new Apple(new Random().nextInt(width), new Random().nextInt(height));
     }
 
     public Worm getWorm(){
@@ -75,6 +84,12 @@ public class WormGame extends Timer implements ActionListener {
         }
         if(worm.runsIntoItself()){
             continues = false;
+        }
+//        make sure worm doesn't go out of board
+        for(Piece p: worm.getPieces()){
+            if (p.getX() >= this.width || p.getX() <= 0 || p.getY() >= this.height || p.getY() <= 0) {
+                this.continues = false;
+            }
         }
         updatable.update();
         super.setDelay(1000 / worm.getLength());

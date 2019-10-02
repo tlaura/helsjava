@@ -18,8 +18,8 @@ public class DrawingBoard extends JPanel implements Updatable {
     @Override
     protected void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
-        graphics.setColor(Color.BLACK);
         for(Piece piece : game.getWorm().getPieces()){
+            graphics.setColor(Color.BLACK);
             graphics.fill3DRect(piece.getX()*pieceLength, piece.getY()*pieceLength, pieceLength, pieceLength, true);
         }
         graphics.setColor(Color.RED);
