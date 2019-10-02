@@ -11,6 +11,7 @@ public class UserInterface implements Runnable {
     private JFrame frame;
     private WormGame game;
     private int sideLength;
+    private DrawingBoard board;
 
     public UserInterface(WormGame game, int sideLength) {
         this.game = game;
@@ -34,10 +35,14 @@ public class UserInterface implements Runnable {
     }
 
     public void createComponents(Container container) {
-        // Create drawing board first which then is added into container-object.
-        // After this, create keyboard listener which is added into frame-object
+        this.board = new DrawingBoard(game, sideLength);
+        container.add(board);
+        frame.addKeyListener(new KeyboardListener(game.getWorm()));
     }
 
+    public Updatable getUpdatable(){
+        return board;
+    }
 
     public JFrame getFrame() {
         return frame;

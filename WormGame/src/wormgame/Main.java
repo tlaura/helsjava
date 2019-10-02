@@ -1,26 +1,27 @@
 package wormgame;
 
 import wormgame.domain.Worm;
+import wormgame.game.WormGame;
+import wormgame.gui.UserInterface;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        Worm worm = new Worm(5, 5, Direction.RIGHT);
-        System.out.println(worm.getPieces());
-        worm.move();
-        System.out.println(worm.getPieces());
-        worm.move();
-        System.out.println(worm.getPieces());
-        worm.move();
-        System.out.println(worm.getPieces());
+        WormGame game = new WormGame(20, 20);
 
-        worm.grow();
-        System.out.println(worm.getPieces());
-        worm.move();
-        System.out.println(worm.getPieces());
+        UserInterface ui = new UserInterface(game, 20);
+        SwingUtilities.invokeLater(ui);
 
-        worm.setDirection(Direction.LEFT);
-        System.out.println(worm.runsIntoItself());
-        worm.move();
-        System.out.println(worm.runsIntoItself());
+        while (ui.getUpdatable() == null) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                System.out.println("The drawing board hasn't been created yet.");
+            }
+        }
+
+        game.setUpdatable(ui.getUpdatable());
+        game.start();
     }
 }
