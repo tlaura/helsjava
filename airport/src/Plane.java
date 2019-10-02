@@ -1,5 +1,3 @@
-package com.company;
-
 public class Plane {
     private String id;
     private int capacity;
@@ -11,8 +9,6 @@ public class Plane {
 
     @Override
     public String toString(){
-        return this.id + "(" + this.capacity + " ppl)";
+        return this.id + " (" + this.capacity + " ppl)";
     }
-
-
 }
